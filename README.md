@@ -1,1 +1,1 @@
-# Testing jenkins with GCP
+# GCP Project building pipeline IaC with terraform
