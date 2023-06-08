@@ -4,30 +4,29 @@ pipeline {
     }
     environment {
         GOOGLE_CREDENTIALS = credentials('gcp-terraform-json')
-        workdir = 'terraform'
     }
     stages {
         stage('Terraform init') {
             steps {
-                dir(workdir) {
-                    sh 'terraform init'              
-                }
+                sh 'terraform init'              
             }
         }
-        
+
+        stage('Terraform validate') {
+            steps {
+                sh 'terraform validate'
+            }
+        }
+
         stage('Terraform plan') {
             steps {
-                dir(workdir) {
-                    sh 'terraform plan'
-                }
+                sh 'terraform plan'
             }
         }
 
         stage('Terraform apply') {         
             steps {
-                dir(workdir) {
-                    sh 'terraform apply --auto-approve'
-                }
+                sh 'terraform apply --auto-approve'
             }
         }
     }
