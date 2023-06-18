@@ -144,6 +144,5 @@ SSH
   depends_on = [
     google_storage_bucket.bucket
   ]
-
   timeouts {}
 }
