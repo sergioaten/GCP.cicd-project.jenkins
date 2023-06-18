@@ -32,9 +32,9 @@ resource "google_storage_bucket_object" "uploaded_objects" {
   source = each.value.local_path
 }
 
-resource "google_dns_managed_zone" "sa-gcp" {
-  name          = "gcp"
-  dns_name      = "gcp.sergioatenciano.es."
+resource "google_dns_managed_zone" "sa" {
+  name          = "sa"
+  dns_name      = "sergioatenciano.es."
   force_destroy = true
   visibility    = "public"
 
@@ -46,18 +46,8 @@ resource "google_dns_managed_zone" "sa-gcp" {
 }
 
 resource "google_dns_record_set" "A-jenkins" {
-  managed_zone = google_dns_managed_zone.sa-gcp.name
-  name         = "jenkins.gcp.sergioatenciano.es."
-  rrdatas = [
-    "35.224.190.233",
-  ]
-  ttl  = 300
-  type = "A"
-}
-
-resource "google_dns_record_set" "A-test" {
-  managed_zone = google_dns_managed_zone.sa-gcp.name
-  name         = "test.gcp.sergioatenciano.es."
+  managed_zone = google_dns_managed_zone.sa.name
+  name         = "jenkins.sergioatenciano.es."
   rrdatas = [
     "35.224.190.233",
   ]
@@ -154,6 +144,5 @@ SSH
   depends_on = [
     google_storage_bucket.bucket
   ]
-
   timeouts {}
 }
